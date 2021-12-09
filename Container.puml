@@ -5,10 +5,13 @@
 !include DEVICONS/mysql.puml
 !include DEVICONS/webplatform.puml
 
+!define FA5 https://gitee.com/coder4/plantuml-icon-font-sprites/raw/master/mirror/font-awesome-5
+!include FA5/weixin.puml
+
 Person(user, "用户", "小程序电商系统的潜在用户")
 
 System_Boundary(c1, "小程序电商系统") {
-    Container(miniApp, "微信小程序", "mini", "用户交互的小程序前端", $sprite="webplatform")
+    Container(miniApp, "微信小程序", "mini", "用户交互的小程序前端", $sprite="weixin")
     Container(mallService, "商城微服务", "Java, Spring Cloud, Tomcat", "商品浏览、详情的业务逻辑", $sprite="java")
     Container(orderService, "订单微服务", "Java, Spring Cloud, Tomcat", "下单、订单的业务逻辑", $sprite="java")
     Container(miniService, "小程序微服务", "Java, Spring Cloud, Tomcat", "微信授权、推送等业务逻辑", $sprite="java")
