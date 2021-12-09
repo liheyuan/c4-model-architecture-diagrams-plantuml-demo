@@ -1,0 +1,41 @@
+@startuml
+!include /Users/coder4/code/C4-PlantUML/C4_Container.puml
+!define DEVICONS /Users/coder4/code/plantuml-icon-font-sprites/devicons
+!include DEVICONS/java.puml
+!include DEVICONS/mysql.puml
+!include DEVICONS/webplatform.puml
+
+Person(user, "用户", "小程序电商系统的潜在用户")
+
+System_Boundary(c1, "小程序电商系统") {
+    Container(miniApp, "微信小程序", "mini", "用户交互的小程序前端", $sprite="webplatform")
+    Container(mallService, "商城微服务", "Java, Spring Cloud, Tomcat", "商品浏览、详情的业务逻辑", $sprite="java")
+    Container(orderService, "订单微服务", "Java, Spring Cloud, Tomcat", "下单、订单的业务逻辑", $sprite="java")
+    Container(miniService, "小程序微服务", "Java, Spring Cloud, Tomcat", "微信授权、推送等业务逻辑", $sprite="java")
+    ContainerDb(database, "Database", "MySQL", "RDBMS数据库", $sprite="mysql")
+}
+
+System_Ext(ecomMiddlePlatform, "电商中台", "提供 商品中台 库存中台 物流中台 订单中台 等中台能力")
+
+System_Ext(weixinPlatform, "微信公众平台", "提供 用户授权、支付、推送 等功能")
+
+Rel_R(user, miniApp, "使用")
+Rel(miniApp, mallService, "调用", "https")
+Rel(miniApp, orderService, "调用", "https")
+Rel(miniApp, miniService, "调用", "https")
+Rel(orderService, miniService, "调用", "rpc")
+Rel(mallService, miniService, "调用", "rpc")
+
+Rel_L(miniService, weixinPlatform, "交互", "https")
+Rel_U(weixinPlatform, user, "交互")
+Rel_R(orderService, ecomMiddlePlatform, "调用", "rpc")
+Rel_R(mallService, ecomMiddlePlatform, "调用", "rpc")
+
+Rel(mallService, database, "读/写")
+Rel(orderService, database, "读/写")
+Rel(miniService, database, "读/写")
+
+SHOW_FLOATING_LEGEND()
+
+
+@enduml
