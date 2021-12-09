@@ -1,5 +1,5 @@
 @startuml
-!include /Users/coder4/code/C4-PlantUML/C4_Context.puml
+!include https://gitee.com/coder4/C4-PlantUML/raw/master/mirror/C4_Context.puml
 
 Person(user, "用户", "小程序电商系统的潜在用户")
 
